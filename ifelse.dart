@@ -1,6 +1,6 @@
 void main()
 {
-  int day = 2;
+  int day = 30;
   if(day<=0)
    {
     print("no fine");
