@@ -1,13 +1,16 @@
-mixin ValidationMixin {
+mixin ValidationMixin 
+{
   //Shared code
-  String? validate(String value) {
+  String? validate(String value) 
+  {
     if (value.isEmpty) return 'Field cannot be empty';
     if (value.length < 3) return 'Minimum 3 characters required';
     return null;
   }
 }
 
-class TextInputField with ValidationMixin {
+class TextInputField with ValidationMixin 
+{
   //(Child) using Mixin
 
   final String label;
@@ -16,12 +19,14 @@ class TextInputField with ValidationMixin {
 
   TextInputField({required this.label, required this.onValueChanged});
 
-  void updateValue(String newValue) {
+  void updateValue(String newValue) 
+  {
     _value = newValue;
     onValueChanged(_value); // Send value to parent
   }
 
-  void checkValidation() {
+  void checkValidation() 
+  {
     final result = validate(_value); // Function from mixin
     if (result != null) {
       print('[$label] Validation Error: $result');
@@ -30,42 +35,50 @@ class TextInputField with ValidationMixin {
     }
   }
 
-  void setFromParent(String newValue) {
+  void setFromParent(String newValue) 
+  {
     print('[$label] Value set from parent: $newValue');
     _value = newValue;
   }
 }
 
-class FormController {
+class FormController 
+{
   //(Parent)
 
   late TextInputField nameField;
   String formData = '';
 
-  FormController() {
-    nameField = TextInputField(
+  FormController() 
+  {
+    nameField = TextInputField
+    (
       label: 'Name',
-      onValueChanged: (value) {
+      onValueChanged: (value) 
+      {
         formData = value;
         print('[FormController] Received from child: $formData');
       },
     );
   }
 
-  void setChildValue() {
+  void setChildValue() 
+  {
     nameField.setFromParent('Parent set value');
   }
 
-  void runValidation() {
+  void runValidation() 
+  {
     nameField.checkValidation();
   }
 }
 
-void main() {
+void main() 
+{
   final form = FormController();
 
   // ✅ Simulate user typing
-  form.nameField.updateValue('Mansi'); // send to parent, triggers validation
+  form.nameField.updateValue('P'); // send to parent, triggers validation
   form.runValidation(); // validate from parent side
 
   // ✅ Simulate parent updating child
